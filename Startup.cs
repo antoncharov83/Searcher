@@ -22,7 +22,7 @@ namespace Searcher
             var preferences = new Preferences();
             preferences.addEngine(new Parser(@"http://yandex.ru/yandsearch?text=", "//div[@class='serp-list']//span[@class='serp-url__item']//a[1]", preferences));
             preferences.addEngine(new Parser(@"https://www.google.ru/search?q=", "//div/div[1]/a/div[2]", preferences));
-            //preferences.addEngine(new Parser(@"http://www.bing.com/search?q=", "", preferences));
+            preferences.addEngine(new Parser(@"https://search.yahoo.com/search?p=", "//ol/li/div/div[1]/div/span[1]", preferences));
             services.AddSingleton(preferences);
 
             string connection = Configuration.GetConnectionString("DefaultConnection");
