@@ -3,6 +3,20 @@
     Layout = "_Layout";
 }
 
+@if (ViewBag.messageUri != null)
+{
+    <div class="alert alert-danger" role="alert">
+        @ViewBag.messageUri
+    </div>
+}
+
+@if (ViewBag.messageXPath != null)
+{
+    <div class="alert alert-danger" role="alert">
+        @ViewBag.messageXPath
+    </div>
+}
+
 <h2>Настройки</h2>
 <h3>Добавление поисковика</h3>
 @using (Html.BeginForm("addEngine", "Preferences", FormMethod.Post, new { enctype = "multipart/form-data" }))
@@ -54,11 +68,11 @@
 {
     foreach (var item in Model.parsers)
     {
-        var a = item.searchEngineUrl+"example";
-            foreach (var p in item.parameters)
-            {
-                a += "&" + p.Key + "=" + p.Value;
-            }        
+        var a = item.searchEngineUrl + "example";
+        foreach (var p in item.parameters)
+        {
+            a += "&" + p.Key + "=" + p.Value;
+        }
         <li>
             @a
         </li>

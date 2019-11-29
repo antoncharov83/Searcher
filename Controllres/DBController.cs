@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Searcher.DAL;
+using Searcher.Data.Models;
 
 namespace Searcher.Controllres
 {
@@ -24,7 +24,8 @@ namespace Searcher.Controllres
         [ValidateAntiForgeryToken]
         public IActionResult Index(String searchingText)
         {
-            return View(context.urls.Select(p => p.Url.Contains(searchingText)));
+            List<FoundUrl> urls = context.urls.Where(p => p.Url.Contains(searchingText)).ToList();
+            return View(urls);
         }
     }
 }

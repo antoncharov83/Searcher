@@ -1,7 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
+using System.Xml.XPath;
+using HtmlAgilityPack;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Searcher.Controllres
@@ -23,8 +27,19 @@ namespace Searcher.Controllres
         [ValidateAntiForgeryToken]
         public IActionResult addEngine(String url, String xPath)
         {
-            preferences.parsers.Add(new Parser(url, xPath, preferences));
-            return RedirectToAction("Index");
+            try
+            {
+                if (!Uri.IsWellFormedUriString(url, UriKind.Absolute)){
+                    ViewBag.messageUri = "Некорректный url";
+                }
+                XPathExpression.Compile(xPath);
+                preferences.parsers.Add(new Parser(url, xPath, preferences));
+            }
+            catch (XPathException e)
+            {
+                ViewBag.messageXPath = "Некорректное выражение xPath - " + e.Message;
+            }
+            return View("Index", preferences);
         }
 
         [HttpPost]

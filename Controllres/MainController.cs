@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Searcher.DAL;
@@ -42,9 +41,9 @@ namespace Searcher.Controllres
                     url.Url = r;
                     url.Engine = preferences.parsers[index].searchEngineUrl;
                     url.DateFound = DateTime.Now;
-                    context.AddAsync(url);
-                    context.SaveChanges();
+                    context.Add(url);
                 }
+                context.SaveChanges();
 
                 return View(result);
             }

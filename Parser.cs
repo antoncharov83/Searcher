@@ -1,17 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using HtmlAgilityPack;
 using System.Net;
-using System.Xml.XPath;
 
 namespace Searcher
 {
     public class Parser : IParser
     {
         public String searchEngineUrl { get; set; }
-        string xPathUrl;//= "//div[@class='serp-list']//span[@class='serp-url__item']//a[1]"
+        string xPathUrl;
         String content;
         HtmlDocument doc;
         public List<KeyValuePair<String, String>> parameters { get; }
@@ -19,14 +17,6 @@ namespace Searcher
 
         public Parser(String searchEngineUrl, string xPathUrl, Preferences preferences) {
             this.searchEngineUrl = searchEngineUrl;
-            //try
-            //{
-            //    XPathExpression expr = XPathExpression.Compile(xPathUrl);
-            //}
-            //catch (XPathException e)
-            //{
-
-            //}
             this.xPathUrl = xPathUrl;
             parameters = new List<KeyValuePair<String, String>>();
             doc = new HtmlDocument();
