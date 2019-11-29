@@ -1,0 +1,35 @@
+﻿@model List<Searcher.Data.Models.FoundUrl>
+@{
+    Layout = "_Layout";
+}
+
+<h2>Поиск по БД</h2>
+@using (Html.BeginForm("Index", "DB", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    <div class="custom-container container" align="center">
+        <div class="panel-body">
+            <div class="row">
+                <div class="input-group">
+                    <input type="text" name="SearchingText" class="form-control" placeholder="Запрос" required autofocus />
+                </div>
+            </div>
+        </div>
+        <br />
+        <div class="panel-footer">
+            <div class="row" align="right">
+                <button type="submit" class="btn btn-labeled btn-success">
+                    <span class="btn-label"><i class="glyphicon glyphicon-ok"></i></span>Искать
+                </button>
+            </div>
+        </div>
+    </div>
+}
+<br />
+@if (Model != null)
+{
+    foreach (var item in Model)
+    {
+        <li>@item.Url</li>
+    }
+}

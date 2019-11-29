@@ -1,0 +1,66 @@
+﻿@model Searcher.Preferences
+@{
+    Layout = "_Layout";
+}
+
+<h2>Настройки</h2>
+<h3>Добавление поисковика</h3>
+@using (Html.BeginForm("addEngine", "Preferences", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    <div class="form-group">
+        <label for="InputEngineUrl">URL address</label>
+        <input type="url" name="url" class="form-control" id="InputEngineUrl" aria-describedby="urlHelp" placeholder="Enter searching engine url with search GET parameter">
+        <small id="urlHelp" class="form-text text-muted">Введите адрес поисковой машины с GET параметром(Пр. 'http://yandex.ru/yandsearch?text=').</small>
+    </div>
+    <div class="form-group">
+        <label for="InputXPath">xPath</label>
+        <input type="text" name="xPath" class="form-control" id="InputXPath" aria-describedby="xPathHelp" placeholder="Enter xPath">
+        <small id="xPathHelp" class="form-text text-muted">Введите xPath выражение(Пр. '//div/div[1]/a/div[2]').</small>
+    </div>
+    <button type="submit" class="btn btn-primary">Добавить</button>
+}
+<h3>Добавление GET параметров для поисковика</h3>
+@using (Html.BeginForm("addKeyValue", "Preferences", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    <div class="form-group">
+        <label for="engineSelect">select engine</label>
+        <select class="form-control" name="selectUrl" id="engineSelect">
+            @if (Model != null)
+            {
+                foreach (var item in Model.parsers)
+                {
+                    <option>@item.searchEngineUrl</option>
+                }
+            }
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="InputKey">Key</label>
+        <input name="key" type="text" class="form-control" id="InputKey" aria-describedby="keyHelp" placeholder="Enter GET parameter">
+        <small id="keyHelp" class="form-text text-muted">Введите GET параметр(Пр. 'lang').</small>
+    </div>
+    <div class="form-group">
+        <label for="InputValue">Value</label>
+        <input name="value" type="text" class="form-control" id="InputValue" aria-describedby="valueHelp" placeholder="Enter value GET parameter">
+        <small id="valueHelp" class="form-text text-muted">Введите значение GET параметра(Пр. '10').</small>
+    </div>
+    <button type="submit" class="btn btn-primary">Добавить</button>
+}
+<br />
+<h3>Поисковики для парсинга, использующиеся сейчас</h3>
+@if (Model != null)
+{
+    foreach (var item in Model.parsers)
+    {
+        var a = item.searchEngineUrl+"example";
+            foreach (var p in item.parameters)
+            {
+                a += "&" + p.Key + "=" + p.Value;
+            }        
+        <li>
+            @a
+        </li>
+    }
+}

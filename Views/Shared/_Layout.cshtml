@@ -1,0 +1,35 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+
+    <!-- Grey with black text -->
+    <nav class="navbar navbar-expand-sm bg-light navbar-light justify-content-center">
+        <ul class="navbar-nav">
+            <li class="nav-item active">
+                <a class="nav-link" href="/Main/Index">Поиск</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/DB/Index">База данных</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/Preferences/Index">Настройки</a>
+            </li>
+        </ul>
+    </nav>
+
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year – Парсинг поисковой выдачи</p>
+        </footer>
+    </div>
+
+</body>
+</html>
