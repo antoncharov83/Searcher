@@ -9,6 +9,11 @@ namespace Searcher
         {
             get;
         }
+        String xPathUrl
+        {
+            get;
+            set;
+        }
         List<KeyValuePair<String, String>> parameters 
         { 
             get;

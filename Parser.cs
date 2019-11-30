@@ -9,7 +9,7 @@ namespace Searcher
     public class Parser : IParser
     {
         public String searchEngineUrl { get; set; }
-        string xPathUrl;
+        public string xPathUrl { get; set; }
         String content;
         HtmlDocument doc;
         public List<KeyValuePair<String, String>> parameters { get; }

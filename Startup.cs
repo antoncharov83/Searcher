@@ -26,6 +26,7 @@ namespace Searcher
             services.AddSingleton(preferences);
 
             string connection = Configuration.GetConnectionString("DefaultConnection");
+            string connectionDocker = Configuration.GetConnectionString("DockerConnection");
             services.AddDbContext<UrlContext>(options =>
                 options.UseSqlServer(connection));
         }

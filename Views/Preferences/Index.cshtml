@@ -63,18 +63,43 @@
     <button type="submit" class="btn btn-primary">Добавить</button>
 }
 <br />
+<h3>Изменение xPath для поисковика</h3>
+@using (Html.BeginForm("changeXPath", "Preferences", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    <div class="form-group">
+        <label for="engineSelect">select engine</label>
+        <select class="form-control" name="selectUrl" id="engineSelect">
+            @if (Model != null)
+            {
+                foreach (var item in Model.parsers)
+                {
+                    <option>@item.searchEngineUrl</option>
+                }
+            }
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="InputXPath">xPath</label>
+        <input type="text" name="xPath" class="form-control" id="InputXPath" aria-describedby="xPathHelp" placeholder="Enter xPath">
+        <small id="xPathHelp" class="form-text text-muted">Введите xPath выражение(Пр. '//div/div[1]/a/div[2]').</small>
+    </div>
+    <button type="submit" class="btn btn-primary">Добавить</button>
+}
+<br />
 <h3>Поисковики для парсинга, использующиеся сейчас</h3>
 @if (Model != null)
 {
     foreach (var item in Model.parsers)
     {
-        var a = item.searchEngineUrl + "example";
+        var url = item.searchEngineUrl + "example";
+        var xpath = item.xPathUrl;
         foreach (var p in item.parameters)
         {
-            a += "&" + p.Key + "=" + p.Value;
+            url += "&" + p.Key + "=" + p.Value;
         }
         <li>
-            @a
+            @url" xPath = "@xpath
         </li>
     }
 }

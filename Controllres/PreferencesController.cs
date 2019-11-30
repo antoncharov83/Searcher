@@ -44,6 +44,22 @@ namespace Searcher.Controllres
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        public IActionResult changeXPath(String selectUrl, String xPath)
+        {
+            try
+            {              
+                XPathExpression.Compile(xPath);
+                preferences.parsers.First(p => p.searchEngineUrl.Equals(selectUrl)).xPathUrl = xPath;
+            }
+            catch (XPathException e)
+            {
+                ViewBag.messageXPath = "Некорректное выражение xPath - " + e.Message;
+            }
+            return View("Index", preferences);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult addKeyValue(String selectUrl,String key, String value)
         {
             preferences.parsers.First(p => p.searchEngineUrl.Equals(selectUrl)).parameters.Add(new KeyValuePair<String, String>(key, value));
