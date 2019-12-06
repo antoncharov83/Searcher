@@ -30,7 +30,7 @@ namespace Searcher.Controllres
             {
                 Task[] tasks = new Task[preferences.parsers.Count];
                 int i = 0;
-                preferences.parsers.ForEach(p => { tasks[i] = Task.Run(() => p.LoadPage(searchingText)); i++; });
+                preferences.parsers.ForEach(p => { tasks[i] = p.LoadPage(searchingText); i++; });
                 int index = Task.WaitAny(tasks);
 
                 List<String> result = preferences.parsers[index].Parse();

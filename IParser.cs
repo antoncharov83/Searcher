@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Searcher
 {
@@ -18,7 +19,7 @@ namespace Searcher
         { 
             get;
         }
-        void LoadPage(string searchingText);
+        Task LoadPage(string searchingText);
         List<String> Parse();
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using HtmlAgilityPack;
 using System.Net;
+using System.Threading.Tasks;
 
 namespace Searcher
 {
@@ -36,13 +37,16 @@ namespace Searcher
             addParameter(name, value);
         }
 
-        public void LoadPage(string searchingText)
+        public async Task LoadPage(string searchingText)
         {
-            WebClient client = new WebClient();
-            client.Headers.Add("user-agent", "Mozilla/5.0 (compatible; U; ABrowse 0.6; Syllable) AppleWebKit/420+ (KHTML, like Gecko)");
-            String urlAdress = searchEngineUrl + searchingText;
-            parameters.ForEach(p => urlAdress += "&" + p.Key + "=" + p.Value);
-            content = client.DownloadString(urlAdress);
+            await Task.Run(() =>
+            {
+                WebClient client = new WebClient();
+                client.Headers.Add("user-agent", "Mozilla/5.0 (compatible; U; ABrowse 0.6; Syllable) AppleWebKit/420+ (KHTML, like Gecko)");
+                String urlAdress = searchEngineUrl + searchingText;
+                parameters.ForEach(p => urlAdress += "&" + p.Key + "=" + p.Value);
+                content = client.DownloadString(urlAdress);
+            });
         }
 
         public List<String> Parse() {
